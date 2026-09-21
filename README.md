@@ -6,9 +6,9 @@ Intézmény: Nyíregyházi Egyetem - Matematikai és Informatikai Intézet
 
 2# Hornyák Csaba - hornyakcsaba232
 
-3# Devera Bálint -
+3# Devera Bálint - KISARC
 
-4# Gresnyer József -
+4# Gresnyer József - TrexxxJoc
 
 
 Projekt struktúra
