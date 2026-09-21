@@ -21,6 +21,15 @@ simulator/ -
 
 docs/ -
 
+#ELSŐ PULL
 git clone https://github.com/Pokoraczki/ev-charging.git
 git checkout -b dev 
 git push origin dev
+
+#PUSH
+git add.
+git commit -m "szöveg"
+git push origin dev
+
+#PULL
+git pull origin dev --rebase
