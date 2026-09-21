@@ -20,3 +20,7 @@ frontend/ -
 simulator/ -
 
 docs/ -
+
+git clone https://github.com/Pokoraczki/ev-charging.git
+git checkout -b dev 
+git push origin dev
