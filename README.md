@@ -33,10 +33,3 @@ git push origin dev
 
 #PULL
 git pull origin dev --rebase
-
-
-#SZÜKSÉGES PLUGINOK/PROGRAMOK
-python -m install uvicorn fastapi websockets
-
-
-postgres
