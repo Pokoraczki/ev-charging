@@ -13,13 +13,10 @@ Intézmény: Nyíregyházi Egyetem - Matematikai és Informatikai Intézet
 
 Projekt struktúra
 
-backend/ - 
-
-frontend/ - 
-
-simulator/ -
-
-docs/ -
+1. Feladat: Architektúra & Adatbázis (Spring Boot alapok, PostgreSQL, JPA entitások)   
+2. Feladat: OCPP & Kommunikáció (WebSocket szerver, JSON üzenetkezelés, BootNotification, Start/Stop Transaction)   
+3. Feladat: Üzleti Logika & Hibakezelés (Session Service, orphan session detektálás, State Machine, self-healing)   
+4. Feladat: Fizetési Gateway & REST API (REST végpontok, pre-auth zárolás és azonnali void/refund logika)   
 
 #ELSŐ PULL
 git clone https://github.com/Pokoraczki/ev-charging.git
