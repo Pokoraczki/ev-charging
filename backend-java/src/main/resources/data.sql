@@ -1,4 +1,3 @@
--- Nyíregyháza összes jelentős töltőállomása
 INSERT INTO charge_points (id, vendor, model, status, created_at) VALUES ('CP_NYIREGYHAZA_01', 'Mobiliti', 'Tritium Veefil-RT 50kW', 'OFFLINE', NOW());
 INSERT INTO charge_points (id, vendor, model, status, created_at) VALUES ('CP_NYIREGYHAZA_02', 'Mobiliti', 'Ensto Chalo 22kW', 'OFFLINE', NOW());
 INSERT INTO charge_points (id, vendor, model, status, created_at) VALUES ('CP_NYIREGYHAZA_03', 'Mobiliti', 'Delta UFC 200', 'OFFLINE', NOW());
