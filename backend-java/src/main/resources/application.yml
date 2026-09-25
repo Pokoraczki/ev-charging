@@ -1,12 +1,11 @@
 server:
-  port: 8000
+  port: 8080
 
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ev_charging_db
     username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
+    password: password
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,7 +13,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always

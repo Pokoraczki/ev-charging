@@ -1,10 +1,12 @@
-package com.evcharging.model;
+package com.evcharging.platform.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "charging_sessions")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class ChargingSession {
 
     @Id
@@ -14,23 +16,25 @@ public class ChargingSession {
     @Column(nullable = false)
     private String chargePointId;
 
-    private LocalDateTime startTime = LocalDateTime.now();
+    @Column(nullable = false)
+    private String transactionId;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private SessionStatus status;
+
+    private LocalDateTime startTime;
     private LocalDateTime endTime;
+    
+    private Double kwhConsumed;
+    private Double costHuf;
 
-    private Double totalKwh = 0.0;
+    private String paymentAuthId; // Banki pre-auth azonosító a visszatérítéshez/voidhoz
 
-    private Double totalCostHuf = 0.0;
-
-    private String status = "PENDING";
-
-    // Getterek és Setterek
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getChargePointId() { return chargePointId; }
-    public void setChargePointId(String chargePointId) { this.chargePointId = chargePointId; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public enum SessionStatus {
+        PENDING,   // Még nincs pénz zárolva, várjuk a töltő oszlop visszajelzését (Atomic State Check)
+        ACTIVE,    // Stabil kapcsolat, folyamatban a töltés
+        COMPLETED, // Sikeresen lezárva
+        FAILED     // Időtúllépés vagy hiba miatt megszakítva / visszatérítve
+    }
 }

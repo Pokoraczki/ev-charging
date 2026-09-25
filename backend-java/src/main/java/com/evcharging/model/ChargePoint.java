@@ -1,35 +1,25 @@
-package com.evcharging.model;
+package com.evcharging.platform.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import lombok.*;
 
 @Entity
 @Table(name = "charge_points")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class ChargePoint {
 
     @Id
-    private String id; // pl. CP_NYIREGYHAZA_01
+    @Column(name = "charge_point_id", nullable = false, unique = true)
+    private String chargePointId; // Pl. "CP-NYIREGYHZA-01"
 
-    @Column(nullable = false)
     private String vendor;
-
-    @Column(nullable = false)
     private String model;
 
-    private String status = "OFFLINE";
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ChargePointStatus status;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    // Getterek és Setterek
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getVendor() { return vendor; }
-    public void setVendor(String vendor) { this.vendor = vendor; }
-
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
-
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public enum ChargePointStatus {
+        OFFLINE, AVAILABLE, CHARGING, FAULTED
+    }
 }
