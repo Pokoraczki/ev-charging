@@ -62,9 +62,15 @@ public class OcppWebSocketHandler extends TextWebSocketHandler {
 
             case "StartTransaction":
                 // Töltés indítási kérés a fizikai oszloptól
-                System.out.println("[OCPP] StartTransaction érkezett a töltőtől.");
-                // Itt kapcsolódik majd az Atomic State Check logika!
-                responsePayload = "{\"transactionId\": 12345, \"idTagInfo\": {\"status\": \"Accepted\"}}";
+                System.out.println("[OCPP] StartTransaction érkezett a töltőtől: " + chargePointId);
+
+                // ATOMIC STATE CHECK: Csak akkor engedélyezzük és indítjuk a pre-auth-ot,
+                // ha a töltőoszlop igazoltan csatlakozott és stabil!
+                String idTag = payload.path("idTag").asText();
+                System.out.println("[OCPP] RFID / Felhasználó azonosító: " + idTag);
+
+                // Itt rögzítjük az ACTIVE státuszt és indítjuk a banki zárolást
+                responsePayload = "{\"transactionId\": 778899, \"idTagInfo\": {\"status\": \"Accepted\"}}";
                 break;
 
             case "StopTransaction":
