@@ -13,3 +13,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  payment:
+    gateway:
+      url: https://api.sandbox.paymentgateway.hu/v1
+      merchant-key: "YOUR_MERCHANT_KEY_HERE"
+      timeout-ms: 5000

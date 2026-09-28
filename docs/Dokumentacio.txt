@@ -1,0 +1,21 @@
+Vállalati Rendszerterv & Fejlesztési Állapotjelentés (EV Charging Platform)Projekt Neve: EV Charging Platform & Management SystemProjekt Státusz: MVP Core Implementálva (dev ág)Dokumentum Célja: Kontextus-átadás új AI ügynökök vagy fejlesztői iterációk számára.1. Projekt Áttekintés & CélkitűzésEz a platform egy kereskedelmi szintű, OCPP 1.6-J kompatibilis Java Spring Boot alapú EV töltőrendszer, amely kifejezetten a meglévő piaci hálózatok (pl. MOL, Shell) kritikus hibáinak kiküszöbölésére lett tervezve:Roaming káosz és kommunikációs szakadások (ghost sessions) megszüntetése.   Beragadt banki pre-auth zárolások (pl. 10 000 Ft-os pre-auth problémák) teljes körű eliminálása.   Technológiai Stack:Backend: Java 17/21, Spring Boot 3.2.4 (Web, WebSocket, Data JPA)   Adatbázis: PostgreSQL (ev_charging_db)   Protokoll: OCPP 1.6-J (JSON over WebSockets)   Verziókövetés: Git & GitHub (dev ág)   2. Eddig Elért Eredmények & Megvalósított ModulokA fejlesztés során mind a négy alappillér (1 fős csapatként szimulálva) implementálásra került a backend-java mappában:2.1. Architektúra & Adatbázis (1. Fejlesztő)pom.xml: Beállítva Spring Boot 3.2.4 verzióval, Web, WebSocket, Data JPA és PostgreSQL driver függőségekkel.   application.yml: Adatbázis kapcsolat konfigurálva a helyi PostgreSQL-hez (ev_charging_db).JPA Entitások:ChargePoint.java: Töltőoszlopok regisztrációja, státuszok (OFFLINE, AVAILABLE, CHARGING, FAULTED).   ChargingSession.java: Munkamenetek nyomon követése, státuszok (PENDING, ACTIVE, COMPLETED, FAILED) és paymentAuthId mező a banki zárolásokhoz.   2.2. OCPP & Kommunikáció (2. Fejlesztő)WebSocketConfig.java: Létrehozva a /ocpp/{chargePointId} végpont a töltőoszlopok számára.   OcppWebSocketHandler.java: Kezeli a bejövő OCPP 1.6-J JSON tömböket ([MessageTypeId, UniqueId, Action, Payload]). Implementálva a BootNotification, StatusNotification, StartTransaction és StopTransaction üzenetek fogadása és válaszadása.   2.3. Üzleti Logika & Hibakezelés (3. Fejlesztő)Atomic State Check: A tranzakció először PENDING státuszban jön létre; nincs pénz zárolás, amíg a fizikai töltőoszlop WebSocketen vissza nem igazolja a stabil kapcsolatot.   Automatic Refund Scheduler: Egy 10 másodpercenként lefutó háttérfolyamat (@Scheduled), amely kiszűri azokat a PENDING munkameneteket, amelyek 30 másodpercnél régebbiek, de nem váltottak ACTIVE státuszba (ghost session detektálás), majd automatikusan indítja a Void parancsot és FAILED-re állítja a tranzakciót.   2.4. Fizetési Gateway & REST API (4. Fejlesztő)PaymentService.java: Kezeli a banki pre-auth zárolást (authorizePayment) és a hibás/időtúllépéses tranzakciók azonnali feloldását (voidPayment).ChargingController.java: REST végpont (POST /api/charging/start) a kliensek/mobilapp számára a töltési folyamat elindításához.3. Fájlstruktúra Áttekintés (backend-java/)Plaintextbackend-java/
+├── pom.xml
+└── src/
+    └── main/
+        ├── resources/
+        │   └── application.yml
+        └── java/
+            └── com/evcharging/platform/
+                ├── entity/
+                │   ├── ChargePoint.java
+                │   └── ChargingSession.java
+                ├── repository/
+                │   └── ChargingSessionRepository.java
+                ├── ocpp/
+                │   ├── WebSocketConfig.java
+                │   └── OcppWebSocketHandler.java
+                ├── service/
+                │   ├── SessionService.java
+                │   └── PaymentService.java
+                └── controller/
+                    └── ChargingController.java
