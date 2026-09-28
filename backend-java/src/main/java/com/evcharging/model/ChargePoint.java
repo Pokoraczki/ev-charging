@@ -1,25 +1,17 @@
-package com.evcharging.platform.entity;
+package com.evcharging.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "charge_points")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class ChargePoint {
-
     @Id
-    @Column(name = "charge_point_id", nullable = false, unique = true)
-    private String chargePointId; // Pl. "CP-NYIREGYHZA-01"
+    private String id;
+    private String status;
 
-    private String vendor;
-    private String model;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ChargePointStatus status;
-
-    public enum ChargePointStatus {
-        OFFLINE, AVAILABLE, CHARGING, FAULTED
-    }
+    // Getterek és setterek
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }

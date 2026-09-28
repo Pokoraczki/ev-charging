@@ -47,7 +47,7 @@ public class PaymentService {
 
             // Mockolt, de strukturált válasz a production tesztekhez:
             String authId = "AUTH-GW-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-            System.[cite: 1]out.println("[PAYMENT] Sikeres banki zárolás. Pre-auth ID: " + authId);
+            System.out.println("[PAYMENT] Sikeres banki zárolás. Pre-auth ID: " + authId);
             return authId;
 
         } catch (Exception e) {
