@@ -5,7 +5,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ev_charging_db
     username: postgres
-    password: password
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
@@ -13,8 +13,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  payment:
-    gateway:
-      url: https://api.sandbox.paymentgateway.hu/v1
-      merchant-key: "YOUR_MERCHANT_KEY_HERE"
-      timeout-ms: 5000
+payment:
+  gateway:
+    url: "https://api.mockbank.hu/v1/authorize"
+    merchant-key: "YOUR_MERCHANT_KEY_HERE"
