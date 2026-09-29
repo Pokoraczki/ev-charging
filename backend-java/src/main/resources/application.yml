@@ -1,6 +1,11 @@
 server:
   port: 8081
-
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: "${SSL_KEYSTORE_PASSWORD:titkos_jelszo}"
+    key-store-type: PKCS12
+    key-alias: ocpp-server-cert
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/ev_charging_db
