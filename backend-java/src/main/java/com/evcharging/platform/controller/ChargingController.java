@@ -1,6 +1,6 @@
 package com.evcharging.platform.controller;
 
-import com.evcharging.platform.entity.ChargingSession;
+import com.evcharging.model.ChargingSession;
 import com.evcharging.platform.service.SessionService;
 import com.evcharging.platform.service.PaymentService;
 import org.springframework.http.ResponseEntity;

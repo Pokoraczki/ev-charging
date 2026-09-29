@@ -1,4 +1,4 @@
-package com.evcharging.platform.entity;
+package com.evcharging.model;
 
 import jakarta.persistence.*;
 import lombok.*;

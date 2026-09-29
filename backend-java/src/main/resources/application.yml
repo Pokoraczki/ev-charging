@@ -18,6 +18,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    hikari:
+      maximum-pool-size: 20          # Párhuzamos szálak maximális száma (hardverfüggő, 4 fős terheléshez / induló üzemhez tökéletes)
+      minimum-idle: 5                # Mindig fenntartott aktív kapcsolatok
+      idle-timeout: 30000            # 30 másodperc után az elhalt idle kapcsolatok lezárása
+      connection-timeout: 20000      # 20 másodperc várakozási idő új kapcsolatért
+      leak-detection-threshold: 5000 # Connection leak naplózás, ha egy szál 5mp-nél tovább tartja a kapcsolatot
 payment:
   gateway:
     url: "https://api.mockbank.hu/v1/authorize"
